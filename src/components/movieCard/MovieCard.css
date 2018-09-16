@@ -1,0 +1,7 @@
+.MovieCard {
+  flex: 30%;
+}
+
+.MovieCard img {
+  width: 250px;
+}

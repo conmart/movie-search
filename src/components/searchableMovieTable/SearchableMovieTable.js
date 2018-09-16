@@ -11,10 +11,19 @@ class SearchableMovieTable extends Component {
     }
   }
 
+  updateSearch(event){
+    this.setState({
+      searchTerm: event.target.value
+    })
+    console.log(this.state.searchTerm)
+  }
+
   render() {
     return (
       <div className="SearchableMovieTable">
-        <SearchBar />
+        <SearchBar
+          value={ this.state.searchTerm }
+          callBack={ this.updateSearch.bind(this) }/>
         <MovieResults />
       </div>
     );

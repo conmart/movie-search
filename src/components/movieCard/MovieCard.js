@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import './MovieCard.css';
 
 class MovieCard extends Component {
 
   render(props) {
     return (
       <div className="MovieCard">
-        { console.log(this.props)}
+        <img src={ this.props.moviePoster } />
         <h4>{ this.props.movieTitle }</h4>
-        <img src='https://www.movieartarena.com/imgs/bladerunner2049ff.jpg' />
       </div>
     )
   }
