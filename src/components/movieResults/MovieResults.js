@@ -4,18 +4,19 @@ import MovieCard from '../movieCard/MovieCard';
 
 class MovieResults extends Component {
 
+  createMovieCards(props) {
+    let cards=[]
+    for (let i=0; i < props.length; i++) {
+      cards.push(<MovieCard movieTitle={ props[i].title } moviePoster={ props[i].poster } key={i}/>)
+    }
+    return cards
+  }
+
   render() {
+    let movies = this.createMovieCards(this.props.foundMovies);
     return (
       <div className='MovieResults'>
-        <MovieCard
-          movieTitle='Blade Runner 2049'
-          moviePoster='https://www.movieartarena.com/imgs/bladerunner2049ff.jpg'/>
-        <MovieCard
-          movieTitle='Fight Club'
-          moviePoster='https://images-na.ssl-images-amazon.com/images/I/51OsUdPrjoL.jpg' />
-        <MovieCard
-          movieTitle='Black Panther'
-          moviePoster='https://images-na.ssl-images-amazon.com/images/I/81H8e4B8SlL._SY717_.jpg' />
+        { movies }
       </div>
     )
   }
