@@ -8,7 +8,7 @@ class SearchableMovieTable extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchTerm: 'test',
+      searchTerm: '',
       foundMovies: [],
       testData: [
         {
@@ -30,13 +30,49 @@ class SearchableMovieTable extends Component {
   updateSearch(event){
     this.setState({
       searchTerm: event.target.value
+    }, () => {
+      if (this.state.searchTerm.length >= 3) {
+        this.getNewMovies()
+      } else {
+        this.getPopularMovies()
+      }
     })
   }
 
+  delayedQuery() {
+    var timeoutID;
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(() => {console.log('timeout')}, 1000);
+  }
+
   componentDidMount() {
+    this.getPopularMovies()
+  }
+
+  getPopularMovies() {
+    let url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiToken}&language=en-US&page=1`
+    fetch(url)
+      .then((results) => {
+        return results.json()
+      })
+      .then((json) => {
+        this.setState({
+          foundMovies: json.results
+        })
+      })
+  }
+
+  getNewMovies() {
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiToken}&query=${this.state.searchTerm}`
     fetch(url)
-      .then(results => this.setState({foundMovies: results.data})).catch()
+      .then((results) => {
+        return results.json()
+      })
+      .then((json) => {
+        this.setState({
+          foundMovies: json.results
+        })
+      })
   }
 
   render() {
@@ -45,7 +81,7 @@ class SearchableMovieTable extends Component {
         <SearchBar
           value={ this.state.searchTerm }
           callBack={ this.updateSearch.bind(this) }/>
-        <MovieResults foundMovies={ this.state.testData }/>
+        <MovieResults foundMovies={ this.state.foundMovies }/>
       </div>
     );
   }
