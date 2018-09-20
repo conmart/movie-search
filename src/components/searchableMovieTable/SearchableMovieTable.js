@@ -31,8 +31,9 @@ class SearchableMovieTable extends Component {
     this.setState({
       searchTerm: event.target.value
     }, () => {
+      clearInterval(this.timeID)
       if (this.state.searchTerm.length >= 3) {
-        this.getNewMovies()
+        this.delayedQuery()
       } else {
         this.getPopularMovies()
       }
@@ -40,9 +41,10 @@ class SearchableMovieTable extends Component {
   }
 
   delayedQuery() {
-    var timeoutID;
-    clearTimeout(timeoutID);
-    timeoutID = setTimeout(() => {console.log('timeout')}, 1000);
+    this.timeID = setInterval(
+      () => this.getNewMovies(),
+      400
+    )
   }
 
   componentDidMount() {
@@ -63,6 +65,7 @@ class SearchableMovieTable extends Component {
   }
 
   getNewMovies() {
+    console.log('ran new movies')
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiToken}&query=${this.state.searchTerm}`
     fetch(url)
       .then((results) => {
@@ -72,6 +75,7 @@ class SearchableMovieTable extends Component {
         this.setState({
           foundMovies: json.results
         })
+        clearInterval(this.timeID)
       })
   }
 
