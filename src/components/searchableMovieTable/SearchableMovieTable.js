@@ -60,12 +60,11 @@ class SearchableMovieTable extends Component {
       .then((json) => {
         this.setState({
           foundMovies: json.results
-        })
+        }, () => console.log(this.state.foundMovies))
       })
   }
 
   getNewMovies() {
-    console.log('ran new movies')
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiToken}&query=${this.state.searchTerm}`
     fetch(url)
       .then((results) => {

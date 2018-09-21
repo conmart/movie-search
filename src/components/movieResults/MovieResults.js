@@ -5,11 +5,15 @@ import MovieCard from '../movieCard/MovieCard';
 class MovieResults extends Component {
 
   createMovieCards(props) {
-    let cards=[]
+    const cards=[]
     if (props) {
       for (let i=0; i < props.length; i++) {
-        const moviePoster = 'https://image.tmdb.org/t/p/w500' + props[i].poster_path
-        cards.push(<MovieCard movieTitle={ props[i].title } moviePoster={ moviePoster } key={i}/>)
+        cards.push(<MovieCard
+          movieTitle={ props[i].title }
+          moviePoster={ 'https://image.tmdb.org/t/p/w500' + props[i].poster_path }
+          movieYear = { props[i].release_date.slice(0, 4) }
+          moviePopularity = { Math.floor(props[i].popularity) }
+          key={ props.id }/>)
       }
     }
     return cards

@@ -1,7 +1,17 @@
 .MovieCard {
   flex: 30%;
+  padding-bottom: 2rem;
 }
 
 .MovieCard img {
   max-width: 300px;
+}
+
+.MovieCard h4 {
+  margin: 0;
+  padding-top: .5rem;
+}
+
+.MovieCard h3 {
+  margin-bottom: 0;
 }

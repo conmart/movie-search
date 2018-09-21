@@ -7,7 +7,9 @@ class MovieCard extends Component {
     return (
       <div className="MovieCard">
         <img src={ this.props.moviePoster } />
-        <h4>{ this.props.movieTitle }</h4>
+        <h3>{ this.props.movieTitle }</h3>
+        <h4>{ this.props.movieYear }</h4>
+        <h4>Popularity: { this.props.moviePopularity } </h4>
       </div>
     )
   }
