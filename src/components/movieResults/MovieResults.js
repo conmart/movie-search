@@ -42,7 +42,11 @@ export default MovieResults;
 //     <div className='movieResults'>
 //       this.props.testData.map((movie) => {
 //         return (
-//           <MovieCard movieTitle={movie.title} moviePoster={movie.poster} key={movie.id} />
+//           <MovieCard movieTitle={movie.title}
+//             moviePoster={'https://image.tmdb.org/t/p/w500' + movie.poster_path}
+//             movieYear = {movie.release_date.slice(0, 4)}
+//             moviePopularity = {Math.floor(movie.popularity)}
+//             key={movie.id} />
 //         )
 //       })
 //     </div>
