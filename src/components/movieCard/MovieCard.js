@@ -1,18 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './MovieCard.css';
 
-class MovieCard extends Component {
-
-  render(props) {
-    return (
-      <div className="MovieCard">
-        <img src={ this.props.moviePoster } />
-        <h3>{ this.props.movieTitle }</h3>
-        <h4>{ this.props.movieYear }</h4>
-        <h4>Popularity: { this.props.moviePopularity } </h4>
-      </div>
-    )
-  }
-}
+const MovieCard = ({ movie }) =>
+  <div className="MovieCard">
+    <img src={ 'https://image.tmdb.org/t/p/w500' + movie.poster_path } alt={movie.title}/>
+    <h3>{ movie.title}</h3>
+    <h4>{ movie.release_date.slice(0, 4) }</h4>
+    <h4>Popularity: { Math.floor(movie.popularity) } </h4>
+  </div>
 
 export default MovieCard;
