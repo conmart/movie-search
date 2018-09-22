@@ -2,79 +2,56 @@ import React, { Component } from 'react';
 import SearchBar from '../searchBar/SearchBar';
 import MovieResults from '../movieResults/MovieResults';
 import apiToken from './api_token';
+import fetchApi from '../../services/fetchApi'
 
 class SearchableMovieTable extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      searchTerm: '',
-      foundMovies: [],
-      testData: [
-        {
-          title: 'Blade Runner 2049',
-          poster: 'https://www.movieartarena.com/imgs/bladerunner2049ff.jpg'
-        },
-        {
-          title: 'Fight Club',
-          poster: 'https://images-na.ssl-images-amazon.com/images/I/51OsUdPrjoL.jpg'
-        },
-        {
-          title: 'Black Panther',
-          poster: 'https://images-na.ssl-images-amazon.com/images/I/81H8e4B8SlL._SY717_.jpg'
-        }
-      ]
+      foundMovies: []
     }
+    this.updateSearch = this.updateSearch.bind(this)
   }
 
   updateSearch(event){
+    clearTimeout(this.timeID)
     this.setState({
       searchTerm: event.target.value
-    }, () => {
-      clearInterval(this.timeID)
-      if (this.state.searchTerm.length >= 3) {
-        this.delayedQuery()
-      } else {
-        this.getPopularMovies()
-      }
     })
+    if (event.target.value.length) {
+      this.delayedQuery(event.target.value)
+    }
   }
 
-  delayedQuery() {
-    this.timeID = setInterval(
-      () => this.getNewMovies(),
+  delayedQuery(query) {
+    this.timeID = setTimeout(
+      () => this.queryMovieDB(query),
       400
     )
   }
 
   componentDidMount() {
-    this.getPopularMovies()
+    this.popularMovies()
   }
 
-  getPopularMovies() {
+  popularMovies() {
     let url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiToken}&language=en-US&page=1`
-    fetch(url)
-      .then((results) => {
-        return results.json()
-      })
-      .then((json) => {
+    fetchApi(url)
+      .then(({results}) => {
         this.setState({
-          foundMovies: json.results
-        }, () => console.log(this.state.foundMovies))
+          foundMovies: results
+        })
       })
   }
 
-  getNewMovies() {
-    let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiToken}&query=${this.state.searchTerm}`
-    fetch(url)
-      .then((results) => {
-        return results.json()
-      })
-      .then((json) => {
+  queryMovieDB(query) {
+    let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiToken}&query=${query}`
+    fetchApi(url)
+      .then(({results}) => {
         this.setState({
-          foundMovies: json.results
+          foundMovies: results
         })
-        clearInterval(this.timeID)
       })
   }
 
@@ -82,8 +59,7 @@ class SearchableMovieTable extends Component {
     return (
       <div className="SearchableMovieTable">
         <SearchBar
-          value={ this.state.searchTerm }
-          callBack={ this.updateSearch.bind(this) }/>
+          callBack={ this.updateSearch }/>
         <MovieResults foundMovies={ this.state.foundMovies }/>
       </div>
     );
