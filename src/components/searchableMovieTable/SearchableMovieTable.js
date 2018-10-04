@@ -19,7 +19,7 @@ class SearchableMovieTable extends Component {
     this.setState({
       searchTerm: event.target.value
     })
-    if (event.target.value.length) {
+    if (event.target.value) {
       this.delayedQuery(event.target.value)
     }
   }
@@ -36,7 +36,7 @@ class SearchableMovieTable extends Component {
   }
 
   popularMovies() {
-    let url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiToken}&language=en-US&page=1`
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiToken}&language=en-US&page=1`
     fetchApi(url)
       .then(({results}) => {
         this.setState({
@@ -46,7 +46,7 @@ class SearchableMovieTable extends Component {
   }
 
   queryMovieDB(query) {
-    let url = `https://api.themoviedb.org/3/search/movie?api_key=${apiToken}&query=${query}`
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiToken}&query=${query}`
     fetchApi(url)
       .then(({results}) => {
         this.setState({
@@ -59,7 +59,7 @@ class SearchableMovieTable extends Component {
     return (
       <div className="SearchableMovieTable">
         <SearchBar
-          callBack={ this.updateSearch }/>
+          onSearchChange={ this.updateSearch }/>
         <MovieResults foundMovies={ this.state.foundMovies }/>
       </div>
     );

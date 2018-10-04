@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Title text="Welcome to Movie Search"/>
+        <Title text="Welcome To Movie Search"/>
         <SearchableMovieTable />
       </div>
     );
