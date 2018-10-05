@@ -1,9 +1,10 @@
 import React from 'react';
-import './MovieResults.css';
+import styles from './MovieResults.css';
 import MovieCard from '../movieCard/MovieCard';
+import CssModules from 'react-css-modules';
 
 const MovieResults = ({foundMovies}) =>
-  <div className="MovieResults">
+  <div styleName='movieResults'>
     {foundMovies.map((movie) => {
       return (
         <MovieCard
@@ -13,4 +14,4 @@ const MovieResults = ({foundMovies}) =>
       })}
   </div>
 
-export default MovieResults;
+export default CssModules(MovieResults, styles);

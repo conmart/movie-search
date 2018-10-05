@@ -1,15 +1,17 @@
 import React from 'react';
-import './SearchBar.css';
+import styles from './SearchBar.css';
+import CssModules from 'react-css-modules';
 
 const SearchBar = ({value, onSearchChange}) => {
   return (
-    <div className='SearchBar'>
+    <div>
       <input
         placeholder='Search for a movie'
-        onChange={event => onSearchChange(event)}>
+        onChange={event => onSearchChange(event)}
+        styleName='searchBar'>
       </input>
     </div>
   )
 }
 
-export default SearchBar;
+export default CssModules(SearchBar, styles);

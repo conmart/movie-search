@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.css';
 import Title from './components/title/Title';
 import SearchableMovieTable from './components/searchableMovieTable/SearchableMovieTable';
+import CssModules from 'react-css-modules';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div styleName='app'>
         <Title text="Welcome To Movie Search"/>
         <SearchableMovieTable />
       </div>
@@ -14,4 +15,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default CssModules(App, styles);

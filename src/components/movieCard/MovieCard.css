@@ -1,17 +1,19 @@
-.MovieCard {
+.card {
   flex: 30%;
   padding-bottom: 2rem;
 }
 
-.MovieCard img {
-  max-width: 300px;
-}
-
-.MovieCard h4 {
+.movieTitle {
   margin: 0;
-  padding-top: .5rem;
+  padding-top: 1rem;
 }
 
-.MovieCard h3 {
+.movieSubTitle {
   margin-bottom: 0;
+  margin-top: .5rem;
+}
+
+.moviePoster {
+  max-width: 300px;
+  box-shadow: 4px 4px 6px #666;
 }
